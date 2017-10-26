@@ -1,0 +1,49 @@
+<!doctype html>
+<!--
+@license
+Copyright 2017 Mulesoft.
+
+All rights reserved.
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="test-validatable.html">
+  </head>
+  <body>
+
+    <test-fixture id="basic">
+      <template>
+        <test-validatable></test-validatable>
+      </template>
+    </test-fixture>
+
+    <script>
+    /* global fixture, assert */
+    suite('basic', function() {
+      var element;
+      setup(function() {
+        element = fixture('basic');
+      });
+
+      test('setting `invalid` sets `aria-invalid=true', function() {
+        element.invalid = true;
+        assert.equal(element.getAttribute('aria-invalid'), 'true', 'aria-invalid is set');
+        element.invalid = false;
+        assert.isFalse(element.hasAttribute('aria-invalid'), 'aria-invalid is unset');
+      });
+
+      test('validate() is true if a validator isn\'t set', function() {
+        var valid = element.validate();
+        assert.isTrue(valid);
+      });
+    });
+    </script>
+
+  </body>
+</html>
