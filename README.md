@@ -1,3 +1,2 @@
-# `<iron-validatable-behavior>`
+[![Build Status](https://travis-ci.org/advanced-rest-client/iron-validatable-behavior.svg?branch=stage)](https://travis-ci.org/advanced-rest-client/iron-validatable-behavior)  
 
-Anypoint version of the iron-validatable-behavior
