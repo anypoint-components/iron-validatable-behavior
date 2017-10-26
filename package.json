@@ -1,6 +1,6 @@
 {
   "name": "iron-validatable-behavior",
-  "version": "0.1.0",
+  "version": "1.9.1",
   "license": "Apache-2.0 OR CC-BY-4.0",
   "description": "Anypoint version of the iron-validatable-behavior",
   "devDependencies": {
