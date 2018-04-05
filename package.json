@@ -1,31 +1,27 @@
 {
-  "name": "iron-validatable-behavior",
-  "version": "1.9.1",
-  "license": "Apache-2.0 OR CC-BY-4.0",
+  "name": "@anypoint-components/iron-validatable-behavior",
   "description": "Anypoint version of the iron-validatable-behavior",
+  "version": "2.0.0-preview",
+  "license": "(C) MuleSoft. All rights reserved.",
+  "author": "Pawel Psztyc",
   "devDependencies": {
-    "bower": "^1.8.0",
-    "polymer-cli": "^1.2.0"
+    "@polymer/gen-typescript-declarations": "^1.1.1",
+    "bower": "^1.8.0"
   },
-  "private": false,
-  "main": [
-    "iron-validatable-behavior.html"
-  ],
-  "author": "The Advanced REST client authors <arc@mulesoft.com>",
+  "private": true,
+  "main": "iron-validatable-behavior.html",
   "scripts": {
-    "serve": "node_modules/.bin/polymer serve",
-    "lint": "node_modules/.bin/polymer lint iron-validatable-behavior.html --rules polymer-1",
-    "test-sauce": "node_modules/.bin/polymer test --plugin sauce --job-name \"iron-validatable-behavior:local-test\"",
-    "test": "node_modules/.bin/polymer test --plugin local",
-    "deps": "npm install --quiet && bower install --quiet",
-    "update-deps": "npm update --quiet && bower update --quiet"
+    "lint": "polymer lint iron-validatable-behavior.html",
+    "test-sauce": "polymer test --plugin sauce --job-name \"iron-validatable-behavior:local-test\"",
+    "test": "polymer test --plugin local",
+    "update-types": "gen-typescript-declarations --deleteExisting --outDir ."
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/mulesoft/iron-validatable-behavior.git"
+    "url": "git://github.com/mulesoft-labs/iron-validatable-behavior.git"
   },
   "bugs": {
-    "url": "https://github.com/mulesoft/iron-validatable-behavior/issues",
+    "url": "https://github.com/mulesoft-labs/iron-validatable-behavior/issues",
     "email": "arc@mulesoft.com"
   }
 }

@@ -9,10 +9,8 @@ All rights reserved.
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
-
     <link rel="import" href="test-validatable.html">
     <link rel="import" href="../demo/cats-only.html">
     <link rel="import" href="../demo/minimum-length.html">
@@ -21,57 +19,56 @@ All rights reserved.
 
     <test-fixture id="validators">
       <template>
-        <cats-only></cats-only>
-        <minimum-length></minimum-length>
+        <cats-only message="Error cat"></cats-only>
+        <minimum-length message="Error length"></minimum-length>
         <test-validatable></test-validatable>
       </template>
     </test-fixture>
 
     <script>
-    /* global fixture, assert */
-    suite('validators', function() {
-      var input;
-      setup(function() {
-        var node = fixture('validators');
+    suite('validators', () => {
+      let input;
+      setup((done) => {
+        const node = fixture('validators');
         input = node[2];
+        flush(() => done());
       });
 
-      test('Initially validates', function() {
+      test('Initially validates', () => {
         assert.isTrue(input.validate(''));
         assert.isTrue(input.validate('cats'));
       });
 
-      test('validates single validator', function() {
+      test('validates single validator', () => {
         input.validator = 'cats-only';
         assert.isFalse(input.validate('test'), 'validate is false');
         assert.isTrue(input.validate('cats'), 'validate is true');
       });
 
-      test('validates multiple validators', function() {
+      test('validates multiple validators', () => {
         input.validator = 'cats-only minimum-length';
         // validates agains `cats-only` but not `minimum-length`
         assert.isFalse(input.validate('cat'), 'validate is false');
         assert.isTrue(input.validate('cats'), 'validate is true');
       });
 
-      test('Sets validationStates when invalid', function() {
+      test('Sets validationStates when invalid', () => {
         input.validator = 'cats-only minimum-length';
         // validates agains `cats-only` but not `minimum-length`
         input.validate('cat');
-        var states = input.validationStates;
+        const states = input.validationStates;
 
         assert.isFalse(states[1].valid, 'state.valid is false');
         assert.isString(states[1].message, 'state.message is string');
       });
 
-      test('Sets validationStates when valid', function() {
+      test('Sets validationStates when valid', () => {
         input.validator = 'cats-only minimum-length';
         // validates agains `cats-only` but not `minimum-length`
         input.validate('cat');
-        var states = input.validationStates;
+        const states = input.validationStates;
 
         assert.isTrue(states[0].valid, 'state.valid is true');
-        assert.isUndefined(states[0].message, 'state.message is undefined');
       });
 
     });

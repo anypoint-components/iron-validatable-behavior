@@ -11,7 +11,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 -->
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/lib/utils/mixin.html">
 <link rel="import" href="../iron-meta/iron-meta.html">
 
 <script>
@@ -49,170 +49,177 @@ the License.
    * Changing the `invalid` property, either manually or by calling `validate()` will update the
    * `aria-invalid` attribute.
    *
-   * @demo demo/index.html
-   * @polymerBehavior
+   * @polymer
+   * @mixinFunction
+   * @memberof Polymer
    */
-  Polymer.IronValidatableBehavior = {
-
-    properties: {
-
-      /**
-       * Name of the validator or validators to use.
-       * If the element should be validated by more than one validator then separate names with
-       * space. See docs for `Polymer.PolymerValidatorBehavior` for description of how to define a
-       * validator.
-       */
-      validator: {
-        type: String
-      },
-
-      /**
-       * After calling `validate()` this is be populated by latest result of the
-       * test for each validator. Result item contains following properties:
-       *
-       * - validator {String} Name of the validator
-       * - valid {Boolean} Result of the test
-       * - message {String} Error message
-       *
-       * This property is `undefined` if `validator` is not set.
-       */
-      validationStates: {
-        type: Array,
-        readOnly: true,
-        notify: true
-      },
-      /**
-       * True if the last call to `validate` is invalid.
-       */
-      invalid: {
-        notify: true,
-        reflectToAttribute: true,
-        type: Boolean,
-        value: false
-      },
-
-      /**
-       * This property is deprecated and should not be used. Use the global
-       * validator meta singleton, `Polymer.IronValidatableBehaviorMeta` instead.
-       */
-      _validatorMeta: {
-        type: Object
-      },
-
-      /**
-       * Namespace for this validator. This property is deprecated and should
-       * not be used. For all intents and purposes, please consider it a
-       * read-only, config-time property.
-       */
-      validatorType: {
-        type: String,
-        value: 'validator'
-      },
-
-      /**
-       * Overrides `Polymer.IronValidatableBehavior#_validator`
-       * List of validators to use.
-       */
-      _validator: {
-        type: Array,
-        computed: '__computeValidator(validator)'
-      }
-    },
-
-    observers: [
-      '_invalidChanged(invalid)'
-    ],
-
-    registered: function() {
-      Polymer.IronValidatableBehaviorMeta = new Polymer.IronMeta({type: 'validator'});
-    },
-
-    _invalidChanged: function() {
-      if (this.invalid) {
-        this.setAttribute('aria-invalid', 'true');
-      } else {
-        this.removeAttribute('aria-invalid');
-      }
-    },
-
+  Polymer.IronValidatableBehavior = Polymer.dedupingMixin((base) => {
     /**
-     * Overrides `Polymer.IronValidatableBehavior#hasValidator`
-     * @return {boolean} True if the validator `validator` exists.
+     * @polymer
+     * @mixinClass
      */
-    hasValidator: function() {
-      return !!(this._validator && this._validator.length);
-    },
+    class IVBmixin extends base {
+      static get properties() {
+        return {
+          /**
+           * Name of the validator or validators to use.
+           * If the element should be validated by more than one validator then separate names with
+           * space. See docs for `Polymer.PolymerValidatorBehavior` for description of how to define a
+           * validator.
+           */
+          validator: {
+            type: String
+          },
 
-    /**
-     * Returns true if the `value` is valid, and updates `invalid`. If you want
-     * your element to have custom validation logic, do not override this method;
-     * override `_getValidity(value)` instead.
+          /**
+           * After calling `validate()` this is be populated by latest result of the
+           * test for each validator. Result item contains following properties:
+           *
+           * - validator {String} Name of the validator
+           * - valid {Boolean} Result of the test
+           * - message {String} Error message
+           *
+           * This property is `undefined` if `validator` is not set.
+           */
+          validationStates: {
+            type: Array,
+            readOnly: true,
+            notify: true
+          },
+          /**
+           * True if the last call to `validate` is invalid.
+           */
+          invalid: {
+            notify: true,
+            reflectToAttribute: true,
+            type: Boolean,
+            value: false,
+            observer: '_invalidChanged'
+          },
 
-     * @param {Object} value The value to be validated. By default, it is passed
-     * to the validator's `validate()` function, if a validator is set.
-     * @return {boolean} True if `value` is valid.
-     */
-    validate: function(value) {
-      this.invalid = !this._getValidity(value);
-      return !this.invalid;
-    },
+          /**
+           * This property is deprecated and should not be used. Use the global
+           * validator meta singleton, `Polymer.IronValidatableBehaviorMeta` instead.
+           */
+          _validatorMeta: {
+            type: Object
+          },
 
-    /**
-     * Overrides `Polymer.IronValidatableBehavior#hasValidator`
-     *
-     * Returns true if `value` is valid.  By default, it is passed
-     * to the validator's `validate()` function, if a validator is set. You
-     * should override this method if you want to implement custom validity
-     * logic for your element.
-     *
-     * @param {Object} value The value to be validated.
-     * @return {boolean} True if `value` is valid.
-     */
-    _getValidity: function(value) {
-      if (this.hasValidator()) {
-        var result = true;
-        var states = [];
-        this._validator.forEach(function(validator) {
-          var validatorResult = {
-            validator: validator.validatorName,
-            message: validator.message
-          };
-          if (!validator.validate(value)) {
-            result = false;
-            validatorResult.valid = false;
-          } else {
-            validatorResult.valid = true;
+          /**
+           * Namespace for this validator. This property is deprecated and should
+           * not be used. For all intents and purposes, please consider it a
+           * read-only, config-time property.
+           */
+          validatorType: {
+            type: String,
+            value: 'validator'
+          },
+
+          /**
+           * Overrides `Polymer.IronValidatableBehavior#_validator`
+           * List of validators to use.
+           */
+          _validator: {
+            type: Array,
+            computed: '__computeValidator(validator)'
           }
-          states.push(validatorResult);
+        };
+      }
+      /**
+       * @constructor
+       */
+      constructor() {
+        super();
+        Polymer.IronValidatableBehaviorMeta = new Polymer.IronMeta({type: 'validator'});
+      }
+
+      _invalidChanged() {
+        if (this.invalid) {
+          this.setAttribute('aria-invalid', 'true');
+        } else {
+          this.removeAttribute('aria-invalid');
+        }
+      }
+
+      /**
+       * Overrides `Polymer.IronValidatableBehavior#hasValidator`
+       * @return {boolean} True if the validator `validator` exists.
+       */
+      hasValidator() {
+        return !!(this._validator && this._validator.length);
+      }
+
+      /**
+       * Returns true if the `value` is valid, and updates `invalid`. If you want
+       * your element to have custom validation logic, do not override this method;
+       * override `_getValidity(value)` instead.
+
+       * @param {Object} value The value to be validated. By default, it is passed
+       * to the validator's `validate()` function, if a validator is set.
+       * @return {boolean} True if `value` is valid.
+       */
+      validate(value) {
+        this.invalid = !this._getValidity(value);
+        return !this.invalid;
+      }
+
+      /**
+       * Overrides `Polymer.IronValidatableBehavior#hasValidator`
+       *
+       * Returns true if `value` is valid.  By default, it is passed
+       * to the validator's `validate()` function, if a validator is set. You
+       * should override this method if you want to implement custom validity
+       * logic for your element.
+       *
+       * @param {Object} value The value to be validated.
+       * @return {boolean} True if `value` is valid.
+       */
+      _getValidity(value) {
+        if (this.hasValidator()) {
+          let result = true;
+          const states = [];
+          this._validator.forEach((validator) => {
+            const validatorResult = {
+              validator: validator.validatorName,
+              message: validator.message
+            };
+            if (!validator.validate(value)) {
+              result = false;
+              validatorResult.valid = false;
+            } else {
+              validatorResult.valid = true;
+            }
+            states.push(validatorResult);
+          });
+          this._setValidationStates(states);
+          return result;
+        }
+        return true;
+      }
+
+      // Overrides `Polymer.IronValidatableBehavior#__computeValidator`
+      __computeValidator() {
+        if (!Polymer.IronValidatableBehaviorMeta) {
+          return;
+        }
+        const validator = this.validator;
+        if (!validator) {
+          return;
+        }
+        const validatorsNames = validator.split(' ');
+        if (validatorsNames.length === 0) {
+          return;
+        }
+        const result = [];
+        validatorsNames.forEach((name) => {
+          const validator = Polymer.IronValidatableBehaviorMeta.byKey(name);
+          if (validator) {
+            result.push(validator);
+          }
         });
-        this._setValidationStates(states);
         return result;
       }
-      return true;
-    },
-
-    // Overrides `Polymer.IronValidatableBehavior#__computeValidator`
-    __computeValidator: function() {
-      if (!Polymer.IronValidatableBehaviorMeta) {
-        return;
-      }
-      var validator = this.validator;
-      if (!validator) {
-        return;
-      }
-      var validatorsNames = validator.split(' ');
-      if (validatorsNames.length === 0) {
-        return;
-      }
-      var result = [];
-      validatorsNames.forEach(function(name) {
-        var validator = Polymer.IronValidatableBehaviorMeta.byKey(name);
-        if (validator) {
-          result.push(validator);
-        }
-      });
-      return result;
-    },
-  };
-
+    }
+  return IVBmixin;
+  });
 </script>
