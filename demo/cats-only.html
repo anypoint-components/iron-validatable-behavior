@@ -8,7 +8,7 @@ All rights reserved.
 <link rel="import" href="../../polymer/polymer-element.html">
 <link rel="import" href="../../iron-validator-behavior/iron-validator-behavior.html">
 <script>
-class CatsOnly extends Polymer.IronValidatorBehavior(Polymer.Element) {
+class CatsOnly extends Polymer.IronValidatorMixin(Polymer.Element) {
   static get is() { return 'cats-only'; }
   validateObject(obj) {
     let valid = true;

@@ -12,7 +12,7 @@ All rights reserved.
   </template>
 </dom-module>
 <script>
-class TestValidatable extends Polymer.IronValidatableBehavior(Polymer.Element) {
+class TestValidatable extends Polymer.IronValidatableMixin(Polymer.Element) {
   static get is() { return 'test-validatable'; }
   static properties() {
     return {

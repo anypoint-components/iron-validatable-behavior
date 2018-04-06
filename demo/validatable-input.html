@@ -15,7 +15,7 @@ the License.
 <link rel="import" href="../iron-validatable-behavior.html">
 
 <script>
-class ValidatableInput extends Polymer.IronValidatableBehavior(Polymer.Element) {
+class ValidatableInput extends Polymer.IronValidatableMixin(Polymer.Element) {
   static get is() { return 'validatable-input'; }
   static properties() {
     return {
