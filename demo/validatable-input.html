@@ -11,39 +11,34 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 -->
-<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../polymer/polymer-element.html">
 <link rel="import" href="../iron-validatable-behavior.html">
 
 <script>
-
-  Polymer({
-
-    is: 'validatable-input',
-
-    extends: 'input',
-
-    properties: {
-
+class ValidatableInput extends Polymer.IronValidatableMixin(Polymer.Element) {
+  static get is() { return 'validatable-input'; }
+  static properties() {
+    return {
       invalid: {
         notify: true,
         type: Boolean,
         value: false
       }
+    };
+  }
 
-    },
+  static get template() {
+    return Polymer.html`<slot></slot>`;
+  }
 
-    behaviors: [
-      Polymer.IronValidatableBehavior
-    ],
+  ready() {
+    super.ready();
+    this.addEventListener('input', this._onInput.bind(this));
+  }
 
-    listeners: {
-      'input': '_onInput'
-    },
-
-    _onInput: function(event) {
-      this.invalid = !this.validate(event.target.value);
-    }
-
-  });
-
+  _onInput(e) {
+    this.invalid = !this.validate(e.target.value);
+  }
+}
+window.customElements.define(ValidatableInput.is, ValidatableInput);
 </script>

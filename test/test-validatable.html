@@ -4,19 +4,38 @@ Copyright 2017 Mulesoft.
 
 All rights reserved.
 -->
+<link rel="import" href="../../polymer/polymer-element.html">
 <link rel="import" href="../iron-validatable-behavior.html">
-
 <dom-module id="test-validatable">
   <template>
     <content></content>
   </template>
 </dom-module>
-
 <script>
-  Polymer({
-    is: 'test-validatable',
-    behaviors: [
-      Polymer.IronValidatableBehavior
-    ]
-  });
+class TestValidatable extends Polymer.IronValidatableMixin(Polymer.Element) {
+  static get is() { return 'test-validatable'; }
+  static properties() {
+    return {
+      invalid: {
+        notify: true,
+        type: Boolean,
+        value: false
+      }
+    };
+  }
+
+  static get template() {
+    return Polymer.html`<slot></slot>`;
+  }
+
+  ready() {
+    super.ready();
+    this.addEventListener('input', this._onInput.bind(this));
+  }
+
+  _onInput(e) {
+    this.invalid = !this.validate(e.target.value);
+  }
+}
+window.customElements.define(TestValidatable.is, TestValidatable);
 </script>
