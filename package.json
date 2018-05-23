@@ -1,12 +1,11 @@
 {
-  "name": "@anypoint-components/iron-validatable-behavior",
+  "name": "iron-validatable-behavior",
   "description": "Anypoint version of the iron-validatable-behavior",
-  "version": "2.0.0-preview",
+  "version": "2.0.0",
   "license": "(C) MuleSoft. All rights reserved.",
   "author": "Pawel Psztyc",
   "devDependencies": {
-    "@polymer/gen-typescript-declarations": "^1.1.1",
-    "bower": "^1.8.0"
+    "@polymer/gen-typescript-declarations": "^1.1.1"
   },
   "private": true,
   "main": "iron-validatable-behavior.html",

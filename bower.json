@@ -1,7 +1,7 @@
 {
   "name": "iron-validatable-behavior",
   "description": "Anypoint version of the iron-validatable-behavior",
-  "version": "2.0.0-preview",
+  "version": "2.0.0",
   "license": "(C) MuleSoft. All rights reserved.",
   "author": "Pawel Psztyc",
   "keywords": [
@@ -24,7 +24,7 @@
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
     "iron-component-page": "PolymerElements/iron-component-page#^3.0.1",
     "iron-test-helpers": "PolymerElements/iron-test-helpers#^2.0.0",
-    "iron-validator-behavior": "advanced-rest-client/iron-validator-behavior#2.0.0-preview",
+    "iron-validator-behavior": "advanced-rest-client/iron-validator-behavior#^2.0.0",
     "anypoint-styles": "advanced-rest-client/anypoint-styles#2.0.0-preview"
   },
   "ignore": [
