@@ -1,25 +1,27 @@
 <!doctype html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
   <title>iron-validatable-behavior demo</title>
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../../shadycss/apply-shim.html">
-  <link rel="import" href="../../polymer/lib/elements/custom-style.html">
-  <link rel="import" href="../../polymer/lib/elements/dom-bind.html">
-  <link rel="import" href="../../polymer/lib/elements/dom-repeat.html">
-  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-  <link rel="import" href="../../anypoint-styles/anypoint-theme.html">
-  <link rel="import" href="cats-only.html">
-  <link rel="import" href="minimum-length.html">
-  <link rel="import" href="validatable-input.html">
+  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script type="module" src="../../../@webcomponents/shadycss/entrypoints/apply-shim.js"></script>
+  <script type="module" src="../../../@polymer/polymer/lib/elements/custom-style.js"></script>
+  <script type="module" src="../../../@polymer/polymer/lib/elements/dom-bind.js"></script>
+  <script type="module" src="../../../@polymer/polymer/lib/elements/dom-repeat.js"></script>
+  <script type="module" src="../../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
+  <script type="module" src="../../../@advanced-rest-client/anypoint-styles/anypoint-theme.js"></script>
+  <script type="module" src="./cats-only.js"></script>
+  <script type="module" src="./minimum-length.js"></script>
+  <script type="module" src="./validatable-input.js"></script>
   <custom-style>
     <style is="custom-style" include="demo-pages-shared-styles">
     body {
       @apply --arc-font-body1;
     }
+
     .valid {
       color: var(--anypoint-color-success);
     }
@@ -31,6 +33,7 @@
     </style>
   </custom-style>
 </head>
+
 <body>
   <dom-bind id="demo">
     <template is="dom-bind">
@@ -50,7 +53,6 @@
             <span class="invalid" hidden$="[[!invalid]]">invalid</span>
           </p>
         </section>
-
         <section>
           <p>
             only type <code>cats</code> and 4 characters minimum:
@@ -68,14 +70,14 @@
             </template>
           </dom-repeat>
         </section>
-      </template>
-    </dom-bind>
+      </div>
+    </template>
+  </dom-bind>
   </div>
-
   <script>
-    demo.invalid = false;
-    demo.invalidMultiple = false;
+  demo.invalid = false;
+  demo.invalidMultiple = false;
   </script>
-
 </body>
+
 </html>

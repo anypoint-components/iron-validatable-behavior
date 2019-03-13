@@ -1,19 +1,16 @@
-<!--
+/**
 @license
 Copyright 2017 Mulesoft.
 
 All rights reserved.
--->
-<link rel="import" href="../../polymer/polymer-element.html">
-<link rel="import" href="../iron-validatable-behavior.html">
-<dom-module id="test-validatable">
-  <template>
-    <content></content>
-  </template>
-</dom-module>
-<script>
-class TestValidatable extends Polymer.IronValidatableMixin(Polymer.Element) {
-  static get is() { return 'test-validatable'; }
+*/
+import {PolymerElement} from '@polymer/polymer/polymer-element.js';
+import {IronValidatableMixin} from '../iron-validatable-behavior.js';
+import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+class TestValidatable extends IronValidatableMixin(PolymerElement) {
+  static get is() {
+    return 'test-validatable';
+  }
   static properties() {
     return {
       invalid: {
@@ -25,7 +22,7 @@ class TestValidatable extends Polymer.IronValidatableMixin(Polymer.Element) {
   }
 
   static get template() {
-    return Polymer.html`<slot></slot>`;
+    return html`<slot></slot>`;
   }
 
   ready() {
@@ -38,4 +35,3 @@ class TestValidatable extends Polymer.IronValidatableMixin(Polymer.Element) {
   }
 }
 window.customElements.define(TestValidatable.is, TestValidatable);
-</script>

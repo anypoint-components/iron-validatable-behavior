@@ -1,15 +1,15 @@
-<!--
+/**
 @license
 Copyright 2017 Mulesoft.
 
 All rights reserved.
--->
-
-<link rel="import" href="../../polymer/polymer-element.html">
-<link rel="import" href="../../iron-validator-behavior/iron-validator-behavior.html">
-<script>
-class CatsOnly extends Polymer.IronValidatorMixin(Polymer.Element) {
-  static get is() { return 'cats-only'; }
+*/
+import {PolymerElement} from '@polymer/polymer/polymer-element.js';
+import {IronValidatorMixin} from '@polymer/iron-validator-behavior/iron-validator-behavior.js';
+class CatsOnly extends IronValidatorMixin(PolymerElement) {
+  static get is() {
+    return 'cats-only';
+  }
   validateObject(obj) {
     let valid = true;
     for (let key in obj) {
@@ -31,4 +31,3 @@ class CatsOnly extends Polymer.IronValidatorMixin(Polymer.Element) {
   }
 }
 window.customElements.define(CatsOnly.is, CatsOnly);
-</script>
